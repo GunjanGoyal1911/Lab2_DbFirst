@@ -1,0 +1,46 @@
+﻿<Window x:Class="Lab2_DbFirst.AddAuthors"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab2_DbFirst"
+        mc:Ignorable="d"
+        Title="AddAuthors" Height="450" Width="800" Background="Aquamarine" Loaded="AllAuthors_OnLoaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="txtAuthorHeader" Grid.Row="1" Grid.ColumnSpan="4" Text="Add New Authors"
+                   TextAlignment="Center" FontSize="30" FontWeight="Bold" Margin="0 0 0 10" />
+
+        <Label Grid.Column="1" Grid.Row="2" Content="First Name" FontSize="30" FontWeight="DemiBold" Width="250"
+               HorizontalContentAlignment="Right" Margin="0 0 0 10" Padding="0 0 15 0"/>
+        <TextBox x:Name="txtFirstName" Grid.Column="2" Grid.Row="2" Width="400" FontSize="20" TextAlignment="Justify" Margin="0 0 0 10"/>
+
+        <Label Grid.Column="1" Grid.Row="3" Content="Last Name" FontSize="30" FontWeight="DemiBold" Width="250"
+               HorizontalContentAlignment="Right" Margin="0 0 0 15" Padding="0 0 15 0"/>
+        <TextBox x:Name="txtLastName" Grid.Column="2" Grid.Row="3" Width="400" FontSize="20" TextAlignment="Justify" Margin="0 0 0 10"/>
+        <Button x:Name="btnAdd" Grid.Column="2" Grid.Row="4" Width="150" Height="50" Content="Add" FontSize="30" FontWeight="DemiBold" Margin="0 20 0 15" Click="btnAdd_Click"/>
+        <TextBlock x:Name="txtDeleteHeader" Grid.Row="5" Grid.ColumnSpan="4" Text="Delete Author"
+                   TextAlignment="Center" FontSize="30" FontWeight="Bold" Margin="0 0 0 10" />
+
+        <ComboBox x:Name="cmbAllAuthors" Grid.Column="1" Grid.Row="6" Width="300" Height="50" FontSize="20" FontWeight="DemiBold" Margin="0 0 0 15" />
+        <Button x:Name="btnDelete" Grid.Column="2" Grid.Row="6" Width="150" Height="45" Content="Delete" FontSize="30" FontWeight="DemiBold" Margin="0 20 0 15" Click="btnDelete_Click" />
+
+    </Grid>
+</Window>

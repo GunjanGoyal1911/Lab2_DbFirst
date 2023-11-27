@@ -1,0 +1,184 @@
+﻿
+	/************* Table 1 *****************/
+
+	CREATE TABLE Authors(
+		AuthorID INT PRIMARY KEY IDENTITY(1,1),
+		AuthorFirstName NVARCHAR(255),
+		AuthorLastName NVARCHAR(255),
+		AuthorBirthDate DATE
+	);
+
+	INSERT INTO Authors(AuthorFirstName, AuthorLastName, AuthorBirthDate)
+	VALUES
+	('Jane', 'Austen', '1775-12-16'),
+	('George', 'Orwell', '1903-06-25'),
+    ('Mark', 'Twain', '1835-11-30'),
+    ('J.K.', 'Rowling', '1965-07-31');
+	
+	/************* Table 2 *****************/
+
+	CREATE TABLE Books(
+		ISBN13 NVARCHAR(255) PRIMARY KEY,
+		AuthorID INT,
+		Title NVARCHAR(255),
+		Language NVARCHAR(255),
+		Price DECIMAL(10,2),
+		ReleaseDate DATE,
+		PublisherID INT,
+		FOREIGN KEY(AuthorID) REFERENCES Authors(AuthorID),
+		FOREIGN KEY(PublisherID) REFERENCES Publishers(PublisherID)
+	);
+
+	INSERT INTO Books(ISBN13, AuthorID, Title, Language, Price, ReleaseDate, PublisherID)
+	VALUES
+	('978-0451524935', 1, '1984', 'Swedish', 12.99, '1949-06-08',1),
+    ('978-0199536567', 2, 'Adventures of Huckleberry Finn', 'English', 7.99, '1884-12-10',2),
+    ('978-0439554930', 3, 'Harry Potter and the Sorcerer''s Stone', 'English', 14.99, '1997-06-26',3),
+	('978-0141439617', 4, 'Pride and Prejudice', 'English', 9.99, '1813-01-28',4),
+    ('978-0451457994', 1, 'Animal Farm', 'English', 10.99, '1945-08-17',1),
+    ('978-0486280615', 2, 'The Adventures of Tom Sawyer', 'English', 6.99, '1876-12-01',2),
+    ('978-0439554931', 3, 'Män som hatar kvinnor', 'Swedish', 14.99, '1998-07-02',3),
+    ('978-0061120084', 4, 'Sense and Sensibility', 'English', 8.99, '1811-10-30',4),
+    ('978-0061873255', 1, 'Emma', 'English', 9.99, '1815-12-23',1),
+    ('978-0451526342', 2, 'En man som heter Ove', 'Swedish', 11.99, '1945-08-17',2);
+
+	
+	/************* Table 3 *****************/
+
+	CREATE TABLE Stores(
+		StoreID INT PRIMARY KEY IDENTITY(1,1),
+		StoreName NVARCHAR(255),
+		StoreAddress NVARCHAR(255),
+	);
+
+	INSERT INTO Stores(StoreName, StoreAddress)
+	VALUES
+	('Book Haven', '123 Main Street, Gothenburg'),
+    ('Reading Corner', '456 Elm St, Los Angeles'),
+    ('Bookworm Emporium', '789 Oak St, Stockholm');
+    
+	/************* Table 4 *****************/
+
+	CREATE TABLE Inventory(
+		InventoryID INT,
+		StoreID INT,
+		ISBN13 NVARCHAR(255),
+		StockQuantity INT,
+		PRIMARY KEY (InventoryID, ISBN13),
+		FOREIGN KEY(StoreID) REFERENCES Stores(StoreID),
+		FOREIGN KEY(ISBN13) REFERENCES Books(ISBN13)
+	);
+
+	INSERT INTO Inventory(InventoryID, StoreID, ISBN13, StockQuantity)
+		VALUES
+		(1, 1, '978-0451524935', 30),
+		(2, 1, '978-0199536567', 10),
+		(3, 1, '978-0439554930', 20),
+		(4, 1, '978-0141439617', 15),
+		(5, 1, '978-0451457994', 20),
+		(6, 1, '978-0486280615', 15),
+		(7, 1, '978-0439554931', 25),
+		(8, 1, '978-0061120084', 10),
+		(9, 1, '978-0061873255', 12),
+		(10, 1, '978-0451526342', 30),
+		(11, 2, '978-0451524935', 15),
+		(12, 2, '978-0199536567', 15),
+		(13, 2, '978-0439554930', 10),
+		(14, 2, '978-0141439617', 20),
+		(15, 2, '978-0451457994', 25),
+		(16, 2, '978-0486280615', 10),
+		(17, 2, '978-0439554931', 20),
+		(18, 2, '978-0061120084', 15),
+		(19, 2, '978-0061873255', 10),
+		(20, 2, '978-0451526342', 25),
+		(21, 3, '978-0451524935', 15),
+		(22, 3, '978-0199536567', 25),
+		(23, 3, '978-0439554930', 10),
+		(24, 3, '978-0141439617', 25),
+		(25, 3, '978-0451457994', 35),
+		(26, 3, '978-0486280615', 15),
+		(27, 3, '978-0439554931', 35),
+		(28, 3, '978-0061120084', 10),
+		(29, 3, '978-0061873255', 10),
+		(30, 3, '978-0451526342', 30);
+
+		/************* Table 5 *****************/
+
+		CREATE TABLE Customers(
+		CustomerID INT PRIMARY KEY IDENTITY(1,1),
+		CustomerFirstName NVARCHAR(255),
+		CustomerLastName NVARCHAR(255),
+		CustomerEmail NVARCHAR(255),
+		CustomerPhoneNumber BIGINT
+	);
+
+	INSERT INTO Customers(CustomerFirstName, CustomerLastName, CustomerEmail, CustomerPhoneNumber)
+	VALUES
+			('Markus','Andersson','markus.andersson@gmail.com', 09871043256),
+			('Manvik', 'Sharma','manvik.sharma@gmail.com', 09876389654),
+			('Swati','Verma', 'swati.verma@gmail.com', 09765487321),
+			('Lina', 'Borg', 'lina.borg@gmail.com', 09862156432),
+			('Rohan', 'Khan','rohan.khan@gmail.com', 09876548763)
+		;
+   /************* Table 6 *****************/
+
+	CREATE TABLE Orders(
+		OrderID INT PRIMARY KEY IDENTITY(1,1),
+		CustomerID INT,
+		StoreID INT,
+		ISBN13 NVARCHAR(255),
+		OrderDate DATE,
+		OrderStatus NVARCHAR(255),
+		FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+		FOREIGN KEY(StoreID) REFERENCES Stores(StoreID),
+		FOREIGN KEY(ISBN13) REFERENCES Books(ISBN13)
+	);
+	
+
+	INSERT INTO Orders(CustomerID,StoreID,ISBN13,OrderDate,OrderStatus)
+	VALUES
+		(2,1,'978-0451524935', '2023-06-12','Delivered'),
+		(2,3,'978-0439554930', '2023-08-12','Cancelled'),
+		(3,2,'978-0486280615','2023-11-07','Processing'),
+		(3,1,'978-0199536567','2023-07-07','Delivered'),
+		(4,3,'978-0141439617','2023-10-31','Shipped'),
+		(4,2,'978-0451526342','2023-05-03', 'Delivered'),
+		(5,1,'978-0061120084','2023-09-21','Returned'),
+		(5,3,'978-0486280615','2023-09-20','Delivered'),
+		(1,2,'978-0439554930','2023-11-01','Delivered'),
+		(1,1,'978-0061873255','2023-11-05','Shipped')
+	;
+
+	/************* Table 7 *****************/	
+	 
+	CREATE TABLE Publishers(
+		PublisherID INT PRIMARY KEY IDENTITY(1,1),
+		PublisherFirstName NVARCHAR(255),
+		PublisherLastName NVARCHAR(255)
+	);
+
+	INSERT INTO Publishers(PublisherFirstName, PublisherLastName)
+	VALUES
+	('John', 'Doe'),
+    ('Alice', 'Smith'),
+    ('Robert', 'Johnson'),
+    ('Sarah', 'Brown');
+
+	/************* Table 8 *****************/	
+
+	CREATE TABLE Employees(
+		EmployeeID INT PRIMARY KEY IDENTITY(1,1),
+		EmployeeFirstName NVARCHAR(255),
+		EmployeeLastName NVARCHAR(255),
+		EmployeeEmail NVARCHAR(255),
+		EmployeeStoreID INT 
+		FOREIGN KEY(EmployeeStoreID) REFERENCES Stores(StoreID)
+	);
+	INSERT INTO Employees(EmployeeFirstName, EmployeeLastName, EmployeeEmail, EmployeeStoreID)
+	VALUES
+	('Elena', 'Gracia', 'elena.garcia@gmail.com.com', 1),
+    ('David', 'Kim', 'david.kim@gmail.com.com', 2),
+    ('Linda', 'Borg', 'linda.borg@gmail.com.com', 3),
+    ('Michael', 'Wong', 'michael.wong@gmail.com', 1),
+	('Emily', 'Chen', 'emily.chen@gmail.com', 2),
+	('Anna', 'Miller', 'anna.miller@gmail.com', 3);
